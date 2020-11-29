@@ -1,1 +1,1 @@
-# rock-paper-scissors
+This is a browser console game of rock, paper, scissors for The Odin Project.

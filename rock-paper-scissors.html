@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+<script>
+
+    function computerPlay() {
+        let computerSelection = "";
+        let randomNumber = Math.floor(Math.random() * 3);
+        switch (randomNumber){
+            case 1:
+                computerSelection = "rock";
+                break;
+            case 2:
+                computerSelection = "paper";
+                break;
+            case 3:
+                computerSelection = "scissors";
+                break;
+        }
+        return computerSelection;
+    } 
+    
+    function playerPlay() {
+        let playerInput = window.prompt("Selection (Rock, Paper, Scissors): ");
+        let playerSelection = playerInput.toLowerCase();
+        return playerSelection;
+    }   
+
+    function game() {
+        let roundCounter = 0;
+        let winCounter = 0;
+        let loseCounter = 0;
+        let tieCounter = 0;
+        while (roundCounter < 5) {
+            computerPlay();
+            playerPlay();
+            function playRound(playerSelection, computerSelection) {
+                switch (true){
+                    case playerSelection == "rock" && computerSelection == "rock":
+                        tieCounter++;
+                        console.log("It's a tie!");
+                        break;
+                    case playerSelection == "rock" && computerSelection == "paper":
+                        loseCounter++;
+                        console.log("You Lose!");
+                        break;
+                    case playerSelection == "rock" && computerSelection == "scissors":
+                        winCounter++;
+                        console.log("You Win!");
+                        break;
+                    case playerSelection == "paper" && computerSelection == "rock":
+                        winCounter++;
+                        console.log("You Win!");
+                        break;
+                    case playerSelection == "paper" && computerSelection == "paper":
+                        tieCounter++;
+                        console.log("It's a tie!");
+                        break;
+                    case playerSelection == "paper" && computerSelection == "scissors":
+                        loseCounter++;
+                        console.log("You Lose!");
+                        break;
+                    case playerSelection == "scissors" && computerSelection == "rock":
+                        loseCounter++;
+                        console.log("You Lose!");
+                        break;
+                    case playerSelection == "scissors" && computerSelection == "paper":
+                        winCounter++;
+                        console.log("You Win!");
+                        break;
+                    case playerSelection == "scissors" && computerSelection == "scissors":
+                        tieCounter++;
+                        console.log("It's a tie!");
+                        break;
+                }
+                roundCounter++;
+                console.log("Current Score: " + winCounter + "-" + loseCounter + "-" + tieCounter);
+            }
+        }
+
+        if (winCounter > loseCounter) {
+            console.log("Congrats, You Win!");
+        }
+        else if (winCounter < loseCounter) {
+            console.log("You Lost the Game!");
+        }
+        else {
+            console.log("Tie Game!");
+        }
+    }
+
+    game(computerPlay(), playerPlay());
+
+</script>
+
+    </body>
+</html>
