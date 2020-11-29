@@ -3,9 +3,13 @@
     <body>
 
 <script>
+    let computerSelection = "nothing";
+    let playerSelection = "nothing";
+    let winCounter = 0;
+    let loseCounter = 0;
+    let tieCounter = 0;
 
     function computerPlay() {
-        let computerSelection = "";
         let randomNumber = Math.floor(Math.random() * 3);
         switch (randomNumber){
             case 1:
@@ -23,60 +27,57 @@
     
     function playerPlay() {
         let playerInput = window.prompt("Selection (Rock, Paper, Scissors): ");
-        let playerSelection = playerInput.toLowerCase();
+        playerSelection = playerInput.toLowerCase();
         return playerSelection;
     }   
 
-    function game() {
-        let roundCounter = 0;
-        let winCounter = 0;
-        let loseCounter = 0;
-        let tieCounter = 0;
-        while (roundCounter < 5) {
+    function playRound(playerSelection, computerSelection) {
+        switch (true){
+            case playerSelection == "rock" && computerSelection == "rock":
+                tieCounter++;
+                    console.log("It's a tie! Rock vs Rock");
+                    break;
+            case playerSelection == "rock" && computerSelection == "paper":
+                    loseCounter++;
+                    console.log("You Lose! Paper beats Rock");
+                    break;
+            case playerSelection == "rock" && computerSelection == "scissors":
+                    winCounter++;
+                    console.log("You Win! Rock beats Scissors");
+                    break;
+            case playerSelection == "paper" && computerSelection == "rock":
+                    winCounter++;
+                    console.log("You Win! Paper beats Rock");
+                    break;
+            case playerSelection == "paper" && computerSelection == "paper":
+                    tieCounter++;
+                    console.log("It's a tie! Paper vs Paper");
+                    break;
+            case playerSelection == "paper" && computerSelection == "scissors":
+                    loseCounter++;
+                    console.log("You Lose! Scissors beats Paper");
+                    break;
+            case playerSelection == "scissors" && computerSelection == "rock":
+                    loseCounter++;
+                    console.log("You Lose! Rock beats Scissors");
+                    break;
+            case playerSelection == "scissors" && computerSelection == "paper":
+                    winCounter++;
+                    console.log("You Win! Scissors beats Paper");
+                    break;
+            case playerSelection == "scissors" && computerSelection == "scissors":
+                    tieCounter++;
+                    console.log("It's a tie! Scissors vs Scissors");
+                    break;
+        }              
+        console.log("Current Score: " + winCounter + "-" + loseCounter + "-" + tieCounter);
+    }
+
+    function game() {     
+        for (let roundCounter = 0; roundCounter < 5; roundCounter++) {
             computerPlay();
             playerPlay();
-            function playRound(playerSelection, computerSelection) {
-                switch (true){
-                    case playerSelection == "rock" && computerSelection == "rock":
-                        tieCounter++;
-                        console.log("It's a tie!");
-                        break;
-                    case playerSelection == "rock" && computerSelection == "paper":
-                        loseCounter++;
-                        console.log("You Lose!");
-                        break;
-                    case playerSelection == "rock" && computerSelection == "scissors":
-                        winCounter++;
-                        console.log("You Win!");
-                        break;
-                    case playerSelection == "paper" && computerSelection == "rock":
-                        winCounter++;
-                        console.log("You Win!");
-                        break;
-                    case playerSelection == "paper" && computerSelection == "paper":
-                        tieCounter++;
-                        console.log("It's a tie!");
-                        break;
-                    case playerSelection == "paper" && computerSelection == "scissors":
-                        loseCounter++;
-                        console.log("You Lose!");
-                        break;
-                    case playerSelection == "scissors" && computerSelection == "rock":
-                        loseCounter++;
-                        console.log("You Lose!");
-                        break;
-                    case playerSelection == "scissors" && computerSelection == "paper":
-                        winCounter++;
-                        console.log("You Win!");
-                        break;
-                    case playerSelection == "scissors" && computerSelection == "scissors":
-                        tieCounter++;
-                        console.log("It's a tie!");
-                        break;
-                }
-                roundCounter++;
-                console.log("Current Score: " + winCounter + "-" + loseCounter + "-" + tieCounter);
-            }
+            playRound(playerSelection, computerSelection);
         }
 
         if (winCounter > loseCounter) {
@@ -90,7 +91,7 @@
         }
     }
 
-    game(computerPlay(), playerPlay());
+    game();
 
 </script>
 
