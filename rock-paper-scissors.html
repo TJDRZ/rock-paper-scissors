@@ -1,99 +1,116 @@
 <!DOCTYPE html>
 <html>
     <body>
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+        <br />
+        <hr />
+        <br />
+        <div id="result"></div>
+        <div id="scorecard"></div>
 
-<script>
-    let computerSelection = "nothing";
-    let playerSelection = "nothing";
-    let winCounter = 0;
-    let loseCounter = 0;
-    let tieCounter = 0;
+        <script>
+            let computerSelection = "nothing";
+            let playerSelection = "nothing";
+            let winCounter = 0;
+            let loseCounter = 0;
+            let tieCounter = 0;
+            const result = document.querySelector('#result');
+            const score = document.querySelector('#scorecard');
+            const rock = document.querySelector('#rock');
+            const paper = document.querySelector('#paper');
+            const scissors = document.querySelector('#scissors');
 
-    function computerPlay() {
-        let randomNumber = Math.floor(Math.random() * 3);
-        switch (randomNumber){
-            case 1:
-                computerSelection = "rock";
-                break;
-            case 2:
-                computerSelection = "paper";
-                break;
-            case 3:
-                computerSelection = "scissors";
-                break;
-        }
-        return computerSelection;
-    } 
-    
-    function playerPlay() {
-        let playerInput = window.prompt("Selection (Rock, Paper, Scissors): ");
-        playerSelection = playerInput.toLowerCase();
-        return playerSelection;
-    }   
+            rock.addEventListener('click', () => {
+                playerSelection = "rock";
+                computerPlay();
+                playRound(playerSelection, computerSelection);
+            });
 
-    function playRound(playerSelection, computerSelection) {
-        switch (true){
-            case playerSelection == "rock" && computerSelection == "rock":
-                tieCounter++;
-                    console.log("It's a tie! Rock vs Rock");
-                    break;
-            case playerSelection == "rock" && computerSelection == "paper":
-                    loseCounter++;
-                    console.log("You Lose! Paper beats Rock");
-                    break;
-            case playerSelection == "rock" && computerSelection == "scissors":
-                    winCounter++;
-                    console.log("You Win! Rock beats Scissors");
-                    break;
-            case playerSelection == "paper" && computerSelection == "rock":
-                    winCounter++;
-                    console.log("You Win! Paper beats Rock");
-                    break;
-            case playerSelection == "paper" && computerSelection == "paper":
-                    tieCounter++;
-                    console.log("It's a tie! Paper vs Paper");
-                    break;
-            case playerSelection == "paper" && computerSelection == "scissors":
-                    loseCounter++;
-                    console.log("You Lose! Scissors beats Paper");
-                    break;
-            case playerSelection == "scissors" && computerSelection == "rock":
-                    loseCounter++;
-                    console.log("You Lose! Rock beats Scissors");
-                    break;
-            case playerSelection == "scissors" && computerSelection == "paper":
-                    winCounter++;
-                    console.log("You Win! Scissors beats Paper");
-                    break;
-            case playerSelection == "scissors" && computerSelection == "scissors":
-                    tieCounter++;
-                    console.log("It's a tie! Scissors vs Scissors");
-                    break;
-        }              
-        console.log("Current Score: " + winCounter + "-" + loseCounter + "-" + tieCounter);
-    }
+            paper.addEventListener('click', () => {
+                playerSelection = "paper";
+                computerPlay();
+                playRound(playerSelection, computerSelection);
+            });
 
-    function game() {     
-        for (let roundCounter = 0; roundCounter < 5; roundCounter++) {
-            computerPlay();
-            playerPlay();
-            playRound(playerSelection, computerSelection);
-        }
+            scissors.addEventListener('click', () => {
+                playerSelection = "scissors";
+                computerPlay();
+                playRound(playerSelection, computerSelection);
+            });
 
-        if (winCounter > loseCounter) {
-            console.log("Congrats, You Win!");
-        }
-        else if (winCounter < loseCounter) {
-            console.log("You Lost the Game!");
-        }
-        else {
-            console.log("Tie Game!");
-        }
-    }
+            function computerPlay() {
+                let randomNumber = Math.floor(Math.random() * 3);
+                switch (randomNumber){
+                    case 1:
+                        computerSelection = "rock";
+                        break;
+                    case 2:
+                        computerSelection = "paper";
+                        break;
+                    case 3:
+                        computerSelection = "scissors";
+                        break;
+                }
+                return computerSelection;
+            } 
 
-    game();
+            function playRound(playerSelection, computerSelection) {
+                switch (true){
+                    case playerSelection == "rock" && computerSelection == "rock":
+                            tieCounter++;
+                            result.textContent = ("It's a tie! Rock vs Rock");
+                            break;
+                    case playerSelection == "rock" && computerSelection == "paper":
+                            loseCounter++;
+                            result.textContent = ("You Lose! Paper beats Rock");
+                            break;
+                    case playerSelection == "rock" && computerSelection == "scissors":
+                            winCounter++;
+                            result.textContent = ("You Win! Rock beats Scissors");
+                            break;
+                    case playerSelection == "paper" && computerSelection == "rock":
+                            winCounter++;
+                            result.textContent = ("You Win! Paper beats Rock");
+                            break;
+                    case playerSelection == "paper" && computerSelection == "paper":
+                            tieCounter++;
+                            result.textContent = ("It's a tie! Paper vs Paper");
+                            break;
+                    case playerSelection == "paper" && computerSelection == "scissors":
+                            loseCounter++;
+                            result.textContent = ("You Lose! Scissors beats Paper");
+                            break;
+                    case playerSelection == "scissors" && computerSelection == "rock":
+                            loseCounter++;
+                            result.textContent = ("You Lose! Rock beats Scissors");
+                            break;
+                    case playerSelection == "scissors" && computerSelection == "paper":
+                            winCounter++;
+                            result.textContent = ("You Win! Scissors beats Paper");
+                            break;
+                    case playerSelection == "scissors" && computerSelection == "scissors":
+                            tieCounter++;
+                            result.textContent = ("It's a tie! Scissors vs Scissors");
+                            break;
+                }              
+                score.textContent = ("Current Score: " + winCounter + "-" + loseCounter + "-" + tieCounter);
 
-</script>
+                if (winCounter >= 5){
+                    winCounter = 0;
+                    loseCounter = 0;
+                    tieCounter = 0;
+                    result.textContent = ("Congrats! You Win the Game!");
+                }
 
+                if (loseCounter >= 5){
+                    winCounter = 0;
+                    loseCounter = 0;
+                    tieCounter = 0;
+                    result.textContent = ("Sorry! You Lose the Game!");
+                }
+            }    
+        </script>
     </body>
 </html>
